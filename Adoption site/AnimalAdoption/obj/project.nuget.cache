@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "dgSpecHash": "JHz1P0+A8KI=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\aurap\\OneDrive\\Desktop\\CS\\SECOND YEAR\\MPP\\Adoption site\\AnimalAdoption\\AnimalAdoption.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\aurap\\.nuget\\packages\\coverlet.collector\\6.0.4\\coverlet.collector.6.0.4.nupkg.sha512",
+    "C:\\Users\\aurap\\.nuget\\packages\\coverlet.msbuild\\6.0.4\\coverlet.msbuild.6.0.4.nupkg.sha512",
+    "C:\\Users\\aurap\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.3\\microsoft.aspnetcore.openapi.9.0.3.nupkg.sha512",
+    "C:\\Users\\aurap\\.nuget\\packages\\microsoft.codecoverage\\17.13.0\\microsoft.codecoverage.17.13.0.nupkg.sha512",
+    "C:\\Users\\aurap\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\aurap\\.nuget\\packages\\microsoft.openapi\\1.6.23\\microsoft.openapi.1.6.23.nupkg.sha512",
+    "C:\\Users\\aurap\\.nuget\\packages\\swashbuckle.aspnetcore\\8.1.0\\swashbuckle.aspnetcore.8.1.0.nupkg.sha512",
+    "C:\\Users\\aurap\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\8.1.0\\swashbuckle.aspnetcore.swagger.8.1.0.nupkg.sha512",
+    "C:\\Users\\aurap\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\8.1.0\\swashbuckle.aspnetcore.swaggergen.8.1.0.nupkg.sha512",
+    "C:\\Users\\aurap\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\8.1.0\\swashbuckle.aspnetcore.swaggerui.8.1.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
+    }
+  ]
+}

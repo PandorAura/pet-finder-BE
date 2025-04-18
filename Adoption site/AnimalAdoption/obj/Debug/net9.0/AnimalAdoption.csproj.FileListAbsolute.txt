@@ -1,0 +1,75 @@
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\appsettings.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.staticwebassets.endpoints.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.exe
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.deps.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.runtimeconfig.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.pdb
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.csproj.AssemblyReference.cache
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.AssemblyInfoInputs.cache
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.AssemblyInfo.cs
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.csproj.CoreCompileInputs.cache
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\scopedcss\bundle\AnimalAdoption.styles.css
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.AnimalAdoption.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.AnimalAdoption.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.build.AnimalAdoption.props
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.AnimalAdoption.props
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.AnimalAdoption.props
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\AnimalAd.3AF09671.Up2Date
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\refint\AnimalAdoption.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.pdb
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.genruntimeconfig.cache
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\AnimalAdoption\obj\Debug\net9.0\ref\AnimalAdoption.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\appsettings.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.staticwebassets.endpoints.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.exe
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.deps.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.runtimeconfig.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\AnimalAdoption.pdb
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.csproj.AssemblyReference.cache
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.AssemblyInfoInputs.cache
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.AssemblyInfo.cs
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.csproj.CoreCompileInputs.cache
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\scopedcss\bundle\AnimalAdoption.styles.css
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.AnimalAdoption.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.AnimalAdoption.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.build.AnimalAdoption.props
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.AnimalAdoption.props
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.AnimalAdoption.props
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAd.3AF09671.Up2Date
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\refint\AnimalAdoption.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.pdb
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.genruntimeconfig.cache
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\Adoption site\AnimalAdoption\obj\Debug\net9.0\ref\AnimalAdoption.dll

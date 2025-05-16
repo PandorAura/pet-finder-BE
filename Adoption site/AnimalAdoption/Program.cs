@@ -2,7 +2,10 @@ using AnimalAdoption.Models;
 using AnimalAdoption;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
-
+using AnimalAdoption.Data;
+using Microsoft.EntityFrameworkCore;
+using AnimalAdoption.Services; // Add this namespace
+using AnimalAdoption.Repositories; // Add this namespace if your repositories are there
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,10 @@ builder.Services.Configure<FormOptions>(options =>
     options.MultipartBodyLengthLimit = 2_000_000_000; // 2GB
 });
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AnimalAdoptionContext>(options =>
+    options.UseSqlServer(connectionString));
+
 // Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -27,7 +34,13 @@ builder.Services.AddSingleton<IAnimalGenerator, AnimalGenerator>();
 builder.Services.AddSingleton<IAnimalFileService, AnimalFileService>();
 builder.Services.AddSingleton<AnimalContext>();
 
-// In Program.cs or Startup.cs
+// Add these missing registrations
+builder.Services.AddScoped<IAnimalService, AnimalService>(); // Add this line
+builder.Services.AddScoped<IUserService, UserService>(); // If you have this
+builder.Services.AddScoped<IAnimalRepository, AnimalRepository>(); // Add this line
+builder.Services.AddScoped<IUserRepository, UserRepository>(); // If you have this
+
+// CORS configuration
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
@@ -38,37 +51,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-
 var app = builder.Build();
 app.UseCors("AllowAll");
-
-
-// Seed initial data
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<AnimalContext>();
-
-    context.Add(new Animal
-    {
-        Name = "Buddy",
-        Age = 3,
-        Photo = "https://example.com/dog1.jpg",
-        Description = "Friendly dog",
-        Location = "New York",
-        IsAdopted = false
-    });
-
-    context.Add(new Animal
-    {
-        Name = "Whiskers",
-        Age = 5,
-        Photo = "https://example.com/cat1.jpg",
-        Description = "Calm cat",
-        Location = "Los Angeles",
-        IsAdopted = false
-    });
-
-}
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
@@ -78,7 +62,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowReactApp");
 
 // WebSocket configuration
 app.UseWebSockets();
@@ -92,7 +75,6 @@ var generator = app.Services.GetRequiredService<IAnimalGenerator>();
 var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
 Task.Run(() => generator.StartGeneratingAsync(lifetime.ApplicationStopping));
 
-// Add this before app.Run()
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(

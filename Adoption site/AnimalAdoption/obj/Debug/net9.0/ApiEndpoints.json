@@ -38,25 +38,20 @@
   },
   {
     "ContainingType": "AnimalAdoption.Controllers.AnimalsController",
-    "Method": "GetAll",
+    "Method": "GetAnimals",
     "RelativePath": "api/Animals",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "name",
+        "Name": "species",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "age",
-        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "location",
-        "Type": "System.String",
+        "Name": "isAdopted",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
@@ -65,8 +60,8 @@
         "IsRequired": false
       },
       {
-        "Name": "ascending",
-        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Name": "sortOrder",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],
@@ -84,7 +79,7 @@
   },
   {
     "ContainingType": "AnimalAdoption.Controllers.AnimalsController",
-    "Method": "Create",
+    "Method": "PostAnimal",
     "RelativePath": "api/Animals",
     "HttpMethod": "POST",
     "IsController": true,
@@ -110,7 +105,28 @@
   },
   {
     "ContainingType": "AnimalAdoption.Controllers.AnimalsController",
-    "Method": "GetById",
+    "Method": "AdoptAnimal",
+    "RelativePath": "api/Animals/{animalId}/adopt/{adopterId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animalId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "adopterId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AnimalAdoption.Controllers.AnimalsController",
+    "Method": "GetAnimal",
     "RelativePath": "api/Animals/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -136,7 +152,7 @@
   },
   {
     "ContainingType": "AnimalAdoption.Controllers.AnimalsController",
-    "Method": "Update",
+    "Method": "PutAnimal",
     "RelativePath": "api/Animals/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -157,7 +173,7 @@
   },
   {
     "ContainingType": "AnimalAdoption.Controllers.AnimalsController",
-    "Method": "Delete",
+    "Method": "DeleteAnimal",
     "RelativePath": "api/Animals/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -170,5 +186,87 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AnimalAdoption.Controllers.AnimalsController",
+    "Method": "ReturnAnimal",
+    "RelativePath": "api/Animals/{id}/return",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AnimalAdoption.Controllers.AnimalsController",
+    "Method": "GetAdoptedAnimals",
+    "RelativePath": "api/Animals/adopted",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[AnimalAdoption.Models.Animal, AnimalAdoption, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AnimalAdoption.Controllers.AnimalsController",
+    "Method": "GetAvailableAnimals",
+    "RelativePath": "api/Animals/available",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[AnimalAdoption.Models.Animal, AnimalAdoption, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AnimalAdoption.Controllers.AnimalsController",
+    "Method": "SearchAnimals",
+    "RelativePath": "api/Animals/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "term",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[AnimalAdoption.Models.Animal, AnimalAdoption, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

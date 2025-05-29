@@ -7,15 +7,15 @@ EXPOSE 5000
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copy project file and restore
-COPY AnimalAdoption/AnimalAdoption.csproj ./AnimalAdoption/
-RUN dotnet restore ./AnimalAdoption/AnimalAdoption.csproj
+# Copy the whole AnimalAdoption folder (including .sln and project files)
+COPY "AnimalAdoption" ./AnimalAdoption/
 
-# Copy the rest of the code
-COPY AnimalAdoption/. ./AnimalAdoption/
 WORKDIR /src/AnimalAdoption
 
-# Publish the app
+# Restore based on the solution file inside AnimalAdoption
+RUN dotnet restore
+
+# Publish the project
 RUN dotnet publish -c Release -o /app/publish
 
 # Final runtime image

@@ -2,25 +2,28 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copy everything
+# Copy solution and project files first (better layer caching)
+COPY ./AnimalAdoption/*.csproj ./AnimalAdoption/
+RUN dotnet restore "AnimalAdoption/AnimalAdoption.csproj"
+
+# Copy everything else
 COPY . .
 
-# Restore dependencies using your solution file path
-RUN dotnet restore "AdoptionSite/AnimalAdoption/AnimalAdoption.sln"
-
-# Publish the app in Release mode to /app/publish
-WORKDIR "/src/AdoptionSite/AnimalAdoption"
-RUN dotnet publish -c Release -o /app/publish --no-restore
+# Build and publish
+WORKDIR /src/AnimalAdoption
+RUN dotnet publish -c Release -o /app
 
 # Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
+COPY --from=build /app .
 
-# Copy published output from build stage
-COPY --from=build /app/publish ./
+# Environment variables
+ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_URLS=http://+:3000
+ENV PORT=3000
 
-# Expose the port your app will listen on (adjust if needed)
-EXPOSE 5000
+# Create directory for uploads
+RUN mkdir -p /app/AnimalUploads
 
-# Set entrypoint to run your app
 ENTRYPOINT ["dotnet", "AnimalAdoption.dll"]

@@ -2,15 +2,16 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copy solution and project files (relative to repo root)
-COPY AdoptionSite/AnimalAdoption/AnimalAdoption.csproj .
-RUN dotnet restore "AnimalAdoption.csproj"
+# Copy solution and project files
+COPY ./AdoptionSite/AnimalAdoption/*.csproj ./AnimalAdoption/
+RUN dotnet restore "./AnimalAdoption/AnimalAdoption.csproj"
 
-# Copy everything else from project folder
-COPY AdoptionSite/AnimalAdoption/ .
+# Copy everything else
+COPY ./AdoptionSite .
 
 # Build and publish
-RUN dotnet publish "AnimalAdoption.csproj" -c Release -o /app
+WORKDIR "/src/AnimalAdoption"
+RUN dotnet publish -c Release -o /app
 
 # Stage 2: Runtime (Force .NET 9)
 FROM mcr.microsoft.com/dotnet/aspnet:9.0

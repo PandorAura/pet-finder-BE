@@ -2,19 +2,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copy the solution file and project files from the AnimalAdoption folder
-COPY AnimalAdoption/AnimalAdoption.sln ./AnimalAdoption/
-COPY AnimalAdoption/AnimalAdoption.csproj ./AnimalAdoption/
+# Copy the entire project directory structure
+COPY . .
 
-# Restore dependencies using the solution file inside AnimalAdoption
-RUN dotnet restore AnimalAdoption/AnimalAdoption.sln
+# Restore dependencies
+RUN dotnet restore "Adoption site/AnimalAdoption/AnimalAdoption.sln"
 
-# Copy all source code from AnimalAdoption folder
-COPY AnimalAdoption/. ./AnimalAdoption/
-
-WORKDIR /src/AnimalAdoption
-
-# Publish the app to /app/publish folder
+# Publish the app
+WORKDIR "/src/Adoption site/AnimalAdoption"
 RUN dotnet publish -c Release -o /app/publish
 
 # Use the official .NET 9 ASP.NET runtime image for runtime
@@ -24,10 +19,8 @@ WORKDIR /app
 # Copy published app from build stage
 COPY --from=build /app/publish ./
 
-# Expose port 5000 (adjust if needed)
+# Expose port 5000
 EXPOSE 5000
 
 # Set entrypoint to run the app
 ENTRYPOINT ["dotnet", "AnimalAdoption.dll"]
-
-

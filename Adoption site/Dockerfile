@@ -1,25 +1,33 @@
-# Use .NET 9.0 Preview base image for runtime
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-WORKDIR /app
-EXPOSE 5000
-
-# Use .NET 9.0 Preview SDK image to build
+# Use the official .NET 9 SDK image for build
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copy the whole AnimalAdoption folder (including .sln and project files)
-COPY "AnimalAdoption" ./AnimalAdoption/
+# Copy the solution file and project files from the AnimalAdoption folder
+COPY AnimalAdoption/AnimalAdoption.sln ./AnimalAdoption/
+COPY AnimalAdoption/AnimalAdoption.csproj ./AnimalAdoption/
+
+# Restore dependencies using the solution file inside AnimalAdoption
+RUN dotnet restore AnimalAdoption/AnimalAdoption.sln
+
+# Copy all source code from AnimalAdoption folder
+COPY AnimalAdoption/. ./AnimalAdoption/
 
 WORKDIR /src/AnimalAdoption
 
-# Restore based on the solution file inside AnimalAdoption
-RUN dotnet restore
-
-# Publish the project
+# Publish the app to /app/publish folder
 RUN dotnet publish -c Release -o /app/publish
 
-# Final runtime image
-FROM base AS final
+# Use the official .NET 9 ASP.NET runtime image for runtime
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
-COPY --from=build /app/publish .
+
+# Copy published app from build stage
+COPY --from=build /app/publish ./
+
+# Expose port 5000 (adjust if needed)
+EXPOSE 5000
+
+# Set entrypoint to run the app
 ENTRYPOINT ["dotnet", "AnimalAdoption.dll"]
+
+

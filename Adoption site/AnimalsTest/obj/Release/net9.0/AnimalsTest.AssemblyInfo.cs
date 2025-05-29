@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AnimalsTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a1a4d3e112f23a61aedbedbbb5bb1739a722ed3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c949b37bb090a64ade4e46ba0365b94787298ff5")]
 [assembly: System.Reflection.AssemblyProductAttribute("AnimalsTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AnimalsTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

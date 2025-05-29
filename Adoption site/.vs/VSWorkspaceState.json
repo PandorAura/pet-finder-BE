@@ -3,8 +3,9 @@
     "",
     "\\AnimalAdoption",
     "\\AnimalAdoption\\Controllers",
+    "\\AnimalAdoption\\Repositories",
     "\\AnimalsTest"
   ],
-  "SelectedNode": "\\AnimalAdoption\\Controllers\\AnimalsController.cs",
+  "SelectedNode": "\\AnimalAdoption\\Repositories\\AnimalRepository.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -1,0 +1,7 @@
+{
+  "buildCommand": "docker build -t animal-adoption ./AdoptionSite",
+  "runCommand": "docker run -p $PORT:3000 animal-adoption"
+}{
+  "buildCommand": "docker build -t animal-adoption ./AdoptionSite",
+  "runCommand": "docker run -p $PORT:3000 animal-adoption"
+}

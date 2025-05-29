@@ -42,25 +42,38 @@ namespace AnimalAdoption.Repositories
                 await _context.SaveChangesAsync();
             }
 
-            public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
+        {
+            var adopter = await _context.Users.FindAsync(id);
+            if (adopter != null)
             {
-                var adopter = await _context.Users.FindAsync(id);
-                if (adopter != null)
+                // Get all adoptions by this user
+                var adoptions = await _context.Adoptions
+                    .Where(a => a.UserId == id)
+                    .ToListAsync();
+
+                // For each adoption, mark the animal as not adopted
+                foreach (var adoption in adoptions)
                 {
-                    // First, unassign any animals this adopter has
-                    var animals = await _context.Animals.Where(a => a.AdopterId == id).ToListAsync();
-                    foreach (var animal in animals)
+                    var animal = await _context.Animals.FindAsync(adoption.AnimalId);
+                    if (animal != null)
                     {
-                        animal.AdopterId = null;
                         animal.IsAdopted = false;
                     }
-
-                    _context.Users.Remove(adopter);
-                    await _context.SaveChangesAsync();
                 }
-            }
 
-            public async Task<IEnumerable<User>> GetFilteredAndSortedAsync(
+                // Remove all adoptions by this user
+                _context.Adoptions.RemoveRange(adoptions);
+
+                // Remove the user
+                _context.Users.Remove(adopter);
+
+                await _context.SaveChangesAsync();
+            }
+        }
+
+
+        public async Task<IEnumerable<User>> GetFilteredAndSortedAsync(
                 Expression<Func<User, bool>>? filter = null,
                 Func<IQueryable<User>, IOrderedQueryable<User>>? orderBy = null,
                 string includeProperties = "")

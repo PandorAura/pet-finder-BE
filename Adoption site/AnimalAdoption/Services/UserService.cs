@@ -59,11 +59,6 @@ namespace AnimalAdoption.Services
                 a.Address.Contains(searchTerm));
         }
 
-        public async Task<IEnumerable<Animal>> GetAdoptedAnimalsByAdopterAsync(int adopterId)
-        {
-            return await _animalRepository.FindAsync(a => a.AdopterId == adopterId);
-        }
-
         public async Task<IEnumerable<User>> GetFilteredAndSortedAdoptersAsync(
             Expression<Func<User, bool>>? filter = null,
             Func<IQueryable<User>, IOrderedQueryable<User>>? orderBy = null,

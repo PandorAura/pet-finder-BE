@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AnimalAdoption.Models;
+﻿using AnimalAdoption.Models;
+using AnimalAdoption.Models.DTOs;
 using AnimalAdoption.Services;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
 namespace AnimalAdoption.Controllers
@@ -10,15 +12,17 @@ namespace AnimalAdoption.Controllers
     public class AnimalsController : ControllerBase
     {
         private readonly IAnimalService _animalService;
+        private readonly IMapper _mapper;
 
-        public AnimalsController(IAnimalService animalService)
+        public AnimalsController(IAnimalService animalService, IMapper mapper)
         {
             _animalService = animalService;
+            _mapper = mapper;
         }
 
         // GET: api/Animals
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Animal>>> GetAnimals(
+        public async Task<ActionResult<IEnumerable<AnimalSimpleDto>>> GetAnimals(
             [FromQuery] string? species,
             [FromQuery] bool? isAdopted,
             [FromQuery] string? sortBy,
@@ -60,52 +64,44 @@ namespace AnimalAdoption.Controllers
             var animals = await _animalService.GetFilteredAndSortedAnimalsAsync(
                 filter: filter,
                 orderBy: orderBy,
-                includeProperties: "Adopter");
+                includeProperties: "Adoptions.User");
 
             return Ok(animals);
         }
 
         // GET: api/Animals/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Animal>> GetAnimal(int id)
+        public async Task<ActionResult<AnimalDto>> GetAnimal(int id)
         {
             var animal = await _animalService.GetAnimalByIdAsync(id);
-
             if (animal == null)
             {
                 return NotFound();
             }
-
             return animal;
         }
 
         // PUT: api/Animals/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAnimal(int id, Animal animal)
+        public async Task<IActionResult> PutAnimal(int id, AnimalUpdateDto animalUpdateDto)
         {
-            if (id != animal.Id)
-            {
-                return BadRequest();
-            }
-
             try
             {
-                await _animalService.UpdateAnimalAsync(animal);
+                var updatedAnimal = await _animalService.UpdateAnimalAsync(id, animalUpdateDto);
+                return Ok(updatedAnimal);
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
-                return NotFound();
+                return BadRequest(ex.Message);
             }
-
-            return NoContent();
         }
 
         // POST: api/Animals
         [HttpPost]
-        public async Task<ActionResult<Animal>> PostAnimal(Animal animal)
+        public async Task<ActionResult<AnimalDto>> PostAnimal(AnimalCreateDto animalCreateDto)
         {
-            await _animalService.AddAnimalAsync(animal);
-            return CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
+            var createdAnimal = await _animalService.AddAnimalAsync(animalCreateDto);
+            return CreatedAtAction(nameof(GetAnimal), new { id = createdAnimal.Id }, createdAnimal);
         }
 
         // DELETE: api/Animals/5
@@ -115,23 +111,22 @@ namespace AnimalAdoption.Controllers
             try
             {
                 await _animalService.DeleteAnimalAsync(id);
+                return NoContent();
             }
             catch (ArgumentException)
             {
                 return NotFound();
             }
-
-            return NoContent();
         }
 
         // POST: api/Animals/5/adopt/2
-        [HttpPost("{animalId}/adopt/{adopterId}")]
-        public async Task<IActionResult> AdoptAnimal(int animalId, int adopterId)
+        [HttpPost("{animalId}/adopt/{userId}")]
+        public async Task<IActionResult> AdoptAnimal(int animalId, int userId)
         {
             try
             {
-                await _animalService.AdoptAnimalAsync(animalId, adopterId);
-                return NoContent();
+                var result = await _animalService.AdoptAnimalAsync(animalId, userId);
+                return Ok(result);
             }
             catch (ArgumentException ex)
             {
@@ -145,8 +140,8 @@ namespace AnimalAdoption.Controllers
         {
             try
             {
-                await _animalService.ReturnAnimalAsync(id);
-                return NoContent();
+                var result = await _animalService.ReturnAnimalAsync(id);
+                return Ok(result);
             }
             catch (ArgumentException ex)
             {
@@ -156,7 +151,7 @@ namespace AnimalAdoption.Controllers
 
         // GET: api/Animals/search?term=buddy
         [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<Animal>>> SearchAnimals([FromQuery] string term)
+        public async Task<ActionResult<IEnumerable<AnimalSimpleDto>>> SearchAnimals([FromQuery] string term)
         {
             var animals = await _animalService.SearchAnimalsAsync(term);
             return Ok(animals);
@@ -164,7 +159,7 @@ namespace AnimalAdoption.Controllers
 
         // GET: api/Animals/available
         [HttpGet("available")]
-        public async Task<ActionResult<IEnumerable<Animal>>> GetAvailableAnimals()
+        public async Task<ActionResult<IEnumerable<AnimalSimpleDto>>> GetAvailableAnimals()
         {
             var animals = await _animalService.GetAvailableAnimalsAsync();
             return Ok(animals);
@@ -172,9 +167,16 @@ namespace AnimalAdoption.Controllers
 
         // GET: api/Animals/adopted
         [HttpGet("adopted")]
-        public async Task<ActionResult<IEnumerable<Animal>>> GetAdoptedAnimals()
+        public async Task<ActionResult<IEnumerable<AnimalSimpleDto>>> GetAdoptedAnimals()
         {
             var animals = await _animalService.GetAdoptedAnimalsAsync();
+            return Ok(animals);
+        }
+
+        [HttpGet("stats")]
+        public async Task<ActionResult<IEnumerable<AnimalSimpleDto>>> GetAdoptionStatistics()
+        {
+            var animals = await _animalService.GetAdoptionStatisticsAsync();
             return Ok(animals);
         }
     }

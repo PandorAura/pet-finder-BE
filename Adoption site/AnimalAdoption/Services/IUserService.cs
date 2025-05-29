@@ -11,7 +11,6 @@ namespace AnimalAdoption.Services
         Task UpdateAdopterAsync(User adopter);
         Task DeleteAdopterAsync(int id);
         Task<IEnumerable<User>> SearchAdoptersAsync(string searchTerm);
-        Task<IEnumerable<Animal>> GetAdoptedAnimalsByAdopterAsync(int adopterId);
         Task<IEnumerable<User>> GetFilteredAndSortedAdoptersAsync(
             Expression<Func<User, bool>>? filter = null,
             Func<IQueryable<User>, IOrderedQueryable<User>>? orderBy = null,

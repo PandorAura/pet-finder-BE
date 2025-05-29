@@ -1,111 +1,160 @@
 ﻿using AnimalAdoption.Models;
-using static AnimalAdoption.Repositories.AnimalRepository;
-using System.Linq.Expressions;
+using AnimalAdoption.Models.DTOs;
 using AnimalAdoption.Repositories;
+using AutoMapper;
+using System.Linq.Expressions;
 
 namespace AnimalAdoption.Services
 {
-        public class AnimalService : IAnimalService
+    public class AnimalService : IAnimalService
+    {
+        private readonly IAnimalRepository _animalRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IAdoptionRepository _adoptionRepository;
+        private readonly IMapper _mapper;
+
+        public AnimalService(
+            IAnimalRepository animalRepository,
+            IUserRepository userRepository,
+            IAdoptionRepository adoptionRepository,
+            IMapper mapper)
         {
-            private readonly IAnimalRepository _animalRepository;
-            private readonly IUserRepository _adopterRepository;
-
-            public AnimalService(IAnimalRepository animalRepository, IUserRepository adopterRepository)
-            {
-                _animalRepository = animalRepository;
-                _adopterRepository = adopterRepository;
-            }
-
-            public async Task<IEnumerable<Animal>> GetAllAnimalsAsync()
-            {
-                return await _animalRepository.GetAllAsync();
-            }
-
-            public async Task<Animal?> GetAnimalByIdAsync(int id)
-            {
-                return await _animalRepository.GetByIdAsync(id);
-            }
-
-            public async Task AddAnimalAsync(Animal animal)
-            {
-                if (animal == null) throw new ArgumentNullException(nameof(animal));
-
-                animal.IsAdopted = false;
-                animal.AdopterId = null;
-                await _animalRepository.AddAsync(animal);
-            }
-
-            public async Task UpdateAnimalAsync(Animal animal)
-            {
-                if (animal == null) throw new ArgumentNullException(nameof(animal));
-
-                await _animalRepository.UpdateAsync(animal);
-            }
-
-            public async Task DeleteAnimalAsync(int id)
-            {
-                await _animalRepository.DeleteAsync(id);
-            }
-
-            public async Task AdoptAnimalAsync(int animalId, int adopterId)
-            {
-                var animal = await _animalRepository.GetByIdAsync(animalId);
-                if (animal == null) throw new ArgumentException("Animal not found");
-
-                var adopter = await _adopterRepository.GetByIdAsync(adopterId);
-                if (adopter == null) throw new ArgumentException("Adopter not found");
-
-                animal.IsAdopted = true;
-                animal.AdopterId = adopterId;
-                await _animalRepository.UpdateAsync(animal);
-            }
-
-            public async Task ReturnAnimalAsync(int animalId)
-            {
-                var animal = await _animalRepository.GetByIdAsync(animalId);
-                if (animal == null) throw new ArgumentException("Animal not found");
-
-                animal.IsAdopted = false;
-                animal.AdopterId = null;
-                await _animalRepository.UpdateAsync(animal);
-            }
-
-            public async Task<IEnumerable<Animal>> SearchAnimalsAsync(string searchTerm)
-            {
-                if (string.IsNullOrWhiteSpace(searchTerm))
-                    return await _animalRepository.GetAllAsync();
-
-                return await _animalRepository.FindAsync(a =>
-                    a.Name.Contains(searchTerm) ||
-                    a.Description.Contains(searchTerm) ||
-                    a.Breed.Contains(searchTerm) ||
-                    a.Species.Contains(searchTerm));
-            }
-
-            public async Task<IEnumerable<Animal>> GetAnimalsBySpeciesAsync(string species)
-            {
-                return await _animalRepository.FindAsync(a => a.Species == species);
-            }
-
-            public async Task<IEnumerable<Animal>> GetAvailableAnimalsAsync()
-            {
-                return await _animalRepository.FindAsync(a => !a.IsAdopted);
-            }
-
-            public async Task<IEnumerable<Animal>> GetAdoptedAnimalsAsync()
-            {
-                return await _animalRepository.FindAsync(a => a.IsAdopted);
-            }
-
-            public async Task<IEnumerable<Animal>> GetFilteredAndSortedAnimalsAsync(
-                Expression<Func<Animal, bool>>? filter = null,
-                Func<IQueryable<Animal>, IOrderedQueryable<Animal>>? orderBy = null,
-                string includeProperties = "")
-            {
-                return await _animalRepository.GetFilteredAndSortedAsync(filter, orderBy, includeProperties);
-            }
+            _animalRepository = animalRepository;
+            _userRepository = userRepository;
+            _adoptionRepository = adoptionRepository;
+            _mapper = mapper;
         }
 
-    
-}
+        public async Task<IEnumerable<AnimalSimpleDto>> GetAllAnimalsAsync()
+            => _mapper.Map<IEnumerable<AnimalSimpleDto>>(await _animalRepository.GetAllAsync());
 
+        public async Task<AnimalDto?> GetAnimalByIdAsync(int id)
+            => _mapper.Map<AnimalDto>(await _animalRepository.GetByIdAsync(id));
+
+        public async Task<AnimalDto> AddAnimalAsync(AnimalCreateDto animalCreateDto)
+        {
+            if (animalCreateDto == null)
+                throw new ArgumentNullException(nameof(animalCreateDto));
+
+            var animal = _mapper.Map<Animal>(animalCreateDto);
+            animal.IsAdopted = false;
+
+            await _animalRepository.AddAsync(animal);
+            return _mapper.Map<AnimalDto>(animal);
+        }
+
+        public async Task<AnimalDto> UpdateAnimalAsync(int id, AnimalUpdateDto animalUpdateDto)
+        {
+            var existingAnimal = await GetExistingAnimalOrThrowAsync(id);
+            _mapper.Map(animalUpdateDto, existingAnimal);
+            await _animalRepository.UpdateAsync(existingAnimal);
+            return _mapper.Map<AnimalDto>(existingAnimal);
+        }
+
+        public Task DeleteAnimalAsync(int id)
+            => _animalRepository.DeleteAsync(id);
+
+        public async Task<AnimalDto> AdoptAnimalAsync(int animalId, int userId)
+        {
+            var animal = await GetExistingAnimalOrThrowAsync(animalId);
+            var user = await GetExistingUserOrThrowAsync(userId);
+
+            if (animal.IsAdopted)
+                throw new InvalidOperationException("Animal is already adopted.");
+
+            animal.IsAdopted = true;
+
+            var adoption = new Adoption
+            {
+                AnimalId = animalId,
+                UserId = userId,
+                AdoptionDate = DateTime.UtcNow
+            };
+
+            await _adoptionRepository.AddAsync(adoption);
+            await _animalRepository.UpdateAsync(animal);
+
+            return _mapper.Map<AnimalDto>(animal);
+        }
+
+        public async Task<AnimalDto> ReturnAnimalAsync(int animalId)
+        {
+            var animal = await GetExistingAnimalOrThrowAsync(animalId);
+
+            if (!animal.IsAdopted)
+                throw new InvalidOperationException("Animal is not currently adopted.");
+
+            animal.IsAdopted = false;
+
+            var adoption = await _adoptionRepository.GetLatestByAnimalIdAsync(animalId);
+            if (adoption != null)
+                await _adoptionRepository.DeleteAsync(adoption);
+
+            await _animalRepository.UpdateAsync(animal);
+
+            return _mapper.Map<AnimalDto>(animal);
+        }
+
+        public async Task<IEnumerable<AnimalSimpleDto>> SearchAnimalsAsync(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+                return await GetAllAnimalsAsync();
+
+            var animals = await _animalRepository.FindAsync(a =>
+                a.Name.Contains(searchTerm) ||
+                a.Description.Contains(searchTerm) ||
+                a.Breed.Contains(searchTerm) ||
+                a.Species.Contains(searchTerm));
+
+            return _mapper.Map<IEnumerable<AnimalSimpleDto>>(animals);
+        }
+
+        public Task<IEnumerable<AnimalSimpleDto>> GetAnimalsBySpeciesAsync(string species)
+            => MapAnimalsAsync(_animalRepository.FindAsync(a => a.Species == species));
+
+        public Task<IEnumerable<AnimalSimpleDto>> GetAvailableAnimalsAsync()
+            => MapAnimalsAsync(_animalRepository.FindAsync(a => !a.IsAdopted));
+
+        public Task<IEnumerable<AnimalSimpleDto>> GetAdoptedAnimalsAsync()
+            => MapAnimalsAsync(_animalRepository.FindAsync(a => a.IsAdopted));
+
+        public async Task<IEnumerable<AnimalSimpleDto>> GetFilteredAndSortedAnimalsAsync(
+            Expression<Func<Animal, bool>>? filter = null,
+            Func<IQueryable<Animal>, IOrderedQueryable<Animal>>? orderBy = null,
+            string includeProperties = "")
+        {
+            var animals = await _animalRepository.GetFilteredAndSortedAsync(filter, orderBy, includeProperties);
+            return _mapper.Map<IEnumerable<AnimalSimpleDto>>(animals);
+        }
+
+        // Private helper methods
+
+        private async Task<Animal> GetExistingAnimalOrThrowAsync(int id)
+        {
+            var animal = await _animalRepository.GetByIdAsync(id);
+            if (animal == null)
+                throw new ArgumentException("Animal not found");
+            return animal;
+        }
+
+        private async Task<User> GetExistingUserOrThrowAsync(int id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user == null)
+                throw new ArgumentException("User not found");
+            return user;
+        }
+
+        private async Task<IEnumerable<AnimalSimpleDto>> MapAnimalsAsync(Task<IEnumerable<Animal>> animalsTask)
+        {
+            var animals = await animalsTask;
+            return _mapper.Map<IEnumerable<AnimalSimpleDto>>(animals);
+        }
+
+        public async Task<IEnumerable<AdoptionStatsDto>> GetAdoptionStatisticsAsync()
+        {
+            var animals = await _animalRepository.GetAdoptionStatisticsAsync();
+            return animals;
+        }
+    }
+}

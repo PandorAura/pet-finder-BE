@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AnimalAdoption")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a1a4d3e112f23a61aedbedbbb5bb1739a722ed3")]
 [assembly: System.Reflection.AssemblyProductAttribute("AnimalAdoption")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AnimalAdoption")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

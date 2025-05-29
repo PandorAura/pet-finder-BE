@@ -237,10 +237,13 @@ C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\A
 C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.AnimalAdoption.props
 C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.AnimalAdoption.props
 C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets.pack.json
-C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAd.3AF09671.Up2Date
 C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.dll
 C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\obj\Debug\net9.0\refint\AnimalAdoption.dll
 C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.pdb
 C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\obj\Debug\net9.0\AnimalAdoption.genruntimeconfig.cache
 C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\obj\Debug\net9.0\ref\AnimalAdoption.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\bin\Debug\net9.0\AutoMapper.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\bin\Debug\net9.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\bin\Debug\net9.0\Bogus.dll
+C:\Users\aurap\OneDrive\Desktop\CS\SECOND YEAR\MPP\pet-finder-BE\Adoption site\AnimalAdoption\bin\Debug\net9.0\Dapper.dll

@@ -5,9 +5,15 @@ using Microsoft.Extensions.FileProviders;
 using AnimalAdoption.Data;
 using Microsoft.EntityFrameworkCore;
 using AnimalAdoption.Services; // Add this namespace
-using AnimalAdoption.Repositories; // Add this namespace if your repositories are there
+using AnimalAdoption.Repositories;
+using AnimalAdoption.Utilities.MappingProfiles; // Add this namespace if your repositories are there
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAutoMapper(typeof(AnimalAdoptionProfile));
+builder.Services.AddTransient<DataSeederService>();
+
+
 
 // Add before building the app
 builder.WebHost.ConfigureKestrel(serverOptions =>
@@ -39,6 +45,8 @@ builder.Services.AddScoped<IAnimalService, AnimalService>(); // Add this line
 builder.Services.AddScoped<IUserService, UserService>(); // If you have this
 builder.Services.AddScoped<IAnimalRepository, AnimalRepository>(); // Add this line
 builder.Services.AddScoped<IUserRepository, UserRepository>(); // If you have this
+builder.Services.AddScoped<IAdoptionRepository, AdoptionRepository>();
+builder.Services.AddScoped<IAdoptionService, AdoptionService>();
 
 // CORS configuration
 builder.Services.AddCors(options =>
@@ -52,6 +60,16 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+
+if (args.Contains("--seed"))
+{
+    using var scope = app.Services.CreateScope();
+    var seeder = scope.ServiceProvider.GetRequiredService<DataSeederService>();
+    await seeder.SeedDataAsync();
+    return; // Exit after seeding
+}
+
 app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline

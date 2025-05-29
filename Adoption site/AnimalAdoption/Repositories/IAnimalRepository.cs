@@ -1,4 +1,5 @@
 ﻿using AnimalAdoption.Models;
+using AnimalAdoption.Models.DTOs;
 using System.Linq.Expressions;
 
 namespace AnimalAdoption.Repositories
@@ -15,5 +16,6 @@ namespace AnimalAdoption.Repositories
             Expression<Func<Animal, bool>>? filter = null,
             Func<IQueryable<Animal>, IOrderedQueryable<Animal>>? orderBy = null,
             string includeProperties = "");
+        Task<IEnumerable<AdoptionStatsDto>> GetAdoptionStatisticsAsync();
     }
 }

@@ -10,7 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var port = Environment.GetEnvironmentVariable("PORT") ?? "3000";
+Console.WriteLine($"Listening on port: {port}");
+
 builder.WebHost.UseUrls($"http://*:{port}");
 
 

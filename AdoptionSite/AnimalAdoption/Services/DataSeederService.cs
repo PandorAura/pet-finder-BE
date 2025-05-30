@@ -2,7 +2,8 @@
 using AnimalAdoption.Models;
 using Bogus;
 using Dapper;
-using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using Npgsql;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -16,7 +17,8 @@ namespace AnimalAdoption.Services
         public DataSeederService(AnimalAdoptionContext context, IConfiguration config)
         {
             _context = context;
-            _connectionString = config.GetConnectionString("DefaultConnection");
+            _connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+              ?? "Host=hopper.proxy.rlwy.net;Port=54158;Database=railway;Username=postgres;Password=zjsgtbVjlAQkSKanqKXGFGIJOuSrkJZI;SSL Mode=Require;Trust Server Certificate=true\r\n";
         }
 
         public async Task SeedDataAsync(int userCount = 50, int animalCount = 50, int adoptionCount = 20)
@@ -41,7 +43,7 @@ namespace AnimalAdoption.Services
                 .RuleFor(u => u.PasswordSalt, _ => GenerateSalt())
                 .RuleFor(u => u.PasswordHash, (f, u) => HashPassword("Password123", u.PasswordSalt));
 
-            using var connection = new SqlConnection(_connectionString);
+            using var connection = new NpgsqlConnection(_connectionString);
             await connection.OpenAsync();
 
             const int batchSize = 1000;
@@ -49,8 +51,8 @@ namespace AnimalAdoption.Services
             {
                 var users = userFaker.Generate(Math.Min(batchSize, count - i));
                 await connection.ExecuteAsync(
-                    @"INSERT INTO [Users] (FirstName, LastName, Email, PhoneNumber, Address, RegistrationDate, 
-                        Username, PasswordHash, PasswordSalt, Role) 
+                   @"INSERT INTO ""Users"" (""FirstName"", ""LastName"", ""Email"", ""PhoneNumber"", ""Address"", ""RegistrationDate"",
+                           ""Username"", ""PasswordHash"", ""PasswordSalt"", ""Role"") 
                       VALUES (@FirstName, @LastName, @Email, @PhoneNumber, @Address, @RegistrationDate, 
                         @Username, @PasswordHash, @PasswordSalt, @Role)",
                     users);
@@ -71,14 +73,12 @@ namespace AnimalAdoption.Services
                 .RuleFor(a => a.Description, f => f.Lorem.Paragraph())
                 .RuleFor(a => a.Location, f => f.Address.City())
                 .RuleFor(a => a.Species, f => f.PickRandom(species))
-                .RuleFor(a => a.Breed, (f, a) => a.Species == "Dog"
-                    ? f.PickRandom(dogBreeds)
-                    : f.PickRandom(catBreeds))
+                .RuleFor(a => a.Breed, (f, a) => a.Species == "Dog" ? f.PickRandom(dogBreeds) : f.PickRandom(catBreeds))
                 .RuleFor(a => a.ArrivalDate, f => f.Date.Past(2))
-                .RuleFor(a => a.IsAdopted, _ => false) // Initially false; updated later
+                .RuleFor(a => a.IsAdopted, _ => false)
                 .RuleFor(a => a.Photo, f => $"https://picsum.photos/200/200?random={f.Random.Int(1, 10000)}");
 
-            using var connection = new SqlConnection(_connectionString);
+            using var connection = new NpgsqlConnection(_connectionString);
             await connection.OpenAsync();
 
             const int batchSize = 1000;
@@ -86,8 +86,8 @@ namespace AnimalAdoption.Services
             {
                 var animals = animalFaker.Generate(Math.Min(batchSize, count - i));
                 await connection.ExecuteAsync(
-                    @"INSERT INTO Animals (Name, Age, Description, Location, IsAdopted, Breed, Species, 
-                        ArrivalDate, Photo) 
+                    @"INSERT INTO ""Animals"" (""Name"", ""Age"", ""Description"", ""Location"", ""IsAdopted"", ""Breed"", ""Species"", 
+                         ""ArrivalDate"", ""Photo"") 
                       VALUES (@Name, @Age, @Description, @Location, @IsAdopted, @Breed, @Species, 
                         @ArrivalDate, @Photo)",
                     animals);
@@ -100,7 +100,7 @@ namespace AnimalAdoption.Services
         {
             var faker = new Faker();
 
-            using var connection = new SqlConnection(_connectionString);
+            using var connection = new NpgsqlConnection(_connectionString);
             await connection.OpenAsync();
 
             const int batchSize = 1000;
@@ -114,7 +114,6 @@ namespace AnimalAdoption.Services
                     var userId = faker.Random.Int(1, userCount);
                     var animalId = faker.Random.Int(1, animalCount);
 
-                    // Simple check to avoid duplicates or you can handle this in DB with constraints
                     adoptions.Add(new Adoption
                     {
                         UserId = userId,
@@ -124,7 +123,7 @@ namespace AnimalAdoption.Services
                 }
 
                 await connection.ExecuteAsync(
-                    @"INSERT INTO Adoptions (UserId, AnimalId, AdoptionDate) 
+                    @"INSERT INTO ""Adoptions"" (""UserId"", ""AnimalId"", ""AdoptionDate"")  
                       VALUES (@UserId, @AnimalId, @AdoptionDate)",
                     adoptions);
 
@@ -134,16 +133,16 @@ namespace AnimalAdoption.Services
 
         private async Task UpdateAnimalAdoptionFlagsAsync()
         {
-            // Update Animals.IsAdopted = 1 for animals that have an adoption record
-            using var connection = new SqlConnection(_connectionString);
+            using var connection = new NpgsqlConnection(_connectionString);
             await connection.OpenAsync();
 
             var rowsUpdated = await connection.ExecuteAsync(
-                @"UPDATE Animals
-                  SET IsAdopted = 1
-                  WHERE Id IN (SELECT DISTINCT AnimalId FROM Adoptions)");
+                    @"UPDATE ""Animals""
+                      SET ""IsAdopted"" = TRUE
+                      WHERE ""Id"" IN (SELECT DISTINCT ""AnimalId"" FROM ""Adoptions"")");
 
-            Console.WriteLine($"Updated IsAdopted flag for {rowsUpdated} animals.");
+
+            Console.WriteLine($"Updated is_adopted flag for {rowsUpdated} animals.");
         }
 
         private static byte[] GenerateSalt()

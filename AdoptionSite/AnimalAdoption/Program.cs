@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
+var port = Environment.GetEnvironmentVariable("PORT") ?? "3000";
+builder.WebHost.UseUrls($"http://*:{port}");
+
 
 // Load environment variables (Railway will use ConnectionStrings__DefaultConnection)
 builder.Host.ConfigureAppConfiguration((context, config) =>
@@ -30,9 +33,6 @@ builder.Services.Configure<FormOptions>(options =>
 {
     options.MultipartBodyLengthLimit = 2_000_000_000; // 2GB
 });
-
-var port = Environment.GetEnvironmentVariable("PORT") ?? "3000";
-builder.WebHost.UseUrls($"http://*:{port}");
 
 
 new EnvLoader().Load();

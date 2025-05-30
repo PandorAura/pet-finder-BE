@@ -20,8 +20,9 @@ COPY --from=build /app .
 
 # Configure environment
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENV ASPNETCORE_URLS=http://+:3000
-ENV PORT=3000
+# Remove explicit URL binding to let Railway control the port
+# ENV ASPNETCORE_URLS=http://+:3000
+#ENV PORT=3000
 
 # Create uploads directory
 RUN mkdir -p /app/AnimalUploads

@@ -25,7 +25,11 @@ builder.Services.Configure<FormOptions>(options =>
 {
     options.MultipartBodyLengthLimit = 2_000_000_000; // 2GB
 });
-
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException("Missing database connection string.");
+}
 builder.Services.AddDbContext<AnimalAdoptionContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -37,7 +41,7 @@ builder.Services.AddSwaggerGen();
 // Add custom services
 builder.Services.AddSingleton<IAnimalGenerator, AnimalGenerator>();
 builder.Services.AddSingleton<IAnimalFileService, AnimalFileService>();
-builder.Services.AddSingleton<AnimalContext>();
+builder.Services.AddScoped<AnimalContext>();
 
 // Add these missing registrations
 builder.Services.AddScoped<IAnimalService, AnimalService>(); // Add this line

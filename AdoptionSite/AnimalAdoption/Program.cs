@@ -59,6 +59,16 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        builder => builder
+            .WithOrigins("https://pet-finder-fe-production.up.railway.app") // Your FE URL
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()); // If using cookies/auth
+});
+
 var app = builder.Build();
 
 
@@ -70,7 +80,6 @@ if (args.Contains("--seed"))
     return; // Exit after seeding
 }
 
-app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
